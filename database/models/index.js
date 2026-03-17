@@ -26,6 +26,7 @@ async function init() {
 init();
 
 module.exports = {
+  //exports the models
   User,
   Post,
   Comment,
