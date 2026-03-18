@@ -1,7 +1,11 @@
 const express = require("express"); //import express
 const app = express(); //call express
-require("dotenv").config();
+require("dotenv").config(); //to access .env information to run
 let dbConnect = require("./dbConnect");
+let userRoutes = require("./routes/userRoutes");
+let postRoutes = require("./routes/postRoutes");
+let commentRoutes = require("./routes/commentRoutes");
+let likeRoutes = require("./routes/likeRoutes");
 
 // parse requests of content-type - application/json
 app.use(express.json());
@@ -9,6 +13,11 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to my Capstone Project Database application." });
 });
+
+app.use("/api/users", userRoutes);
+app.use("/api/posts", postRoutes);
+app.use("/api/comments", commentRoutes);
+app.use("/api/likes", likeRoutes);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
