@@ -10,10 +10,14 @@ Post.belongsTo(User);
 User.hasMany(Post);
 Comment.belongsTo(Post);
 Post.hasMany(Comment);
+Comment.belongsTo(User);
+User.hasMany(Comment);
 Like.belongsTo(Post);
 Post.hasMany(Like);
 Like.belongsTo(Comment);
 Comment.hasMany(Like);
+Like.belongsTo(User);
+User.hasMany(Like);
 
 // sync the model - creates the corresponding table in the database
 async function init() {
