@@ -1,8 +1,12 @@
 import Typography from "@mui/material/Typography";
-import ForumPage from "./ForumPage";
+import Forum from "./Forum";
 import Box from "@mui/material/Box";
+import useForumPosts from "../hooks/useForumPosts";
 
 function ChatForum() {
+  const { posts, setPosts, addPost, editPost, deletePost, addComment } =
+    useForumPosts();
+
   return (
     <>
       {/* matching the mui theme and sidebar */}
@@ -11,8 +15,15 @@ function ChatForum() {
         <Typography variant="h4" gutterBottom>
           Welcome
         </Typography>
-        {/* Adding forum  */}
-        <ForumPage></ForumPage>
+        {/* forum page with props passed  */}
+        <Forum
+          posts={posts}
+          setPosts={setPosts}
+          addPost={addPost}
+          editPost={editPost}
+          deletePost={deletePost}
+          addComment={addComment}
+        ></Forum>
       </Box>
     </>
   );

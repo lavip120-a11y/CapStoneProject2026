@@ -1,12 +1,12 @@
-import Box from "mui/material/Box";
+import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
-import MenuContent from "../MenuContent";
-import CardAlert from "../HomePageCardAlert";
+//import MenuContent from "../MenuContent";
+//import CardAlert from "../HomePageCardAlert";
 
 function SideBar() {
   return (
@@ -25,12 +25,10 @@ function SideBar() {
         <Divider />
 
         {/* Menu Links */}
-        <Box sx={{ flexGrow: 1 }}>
-          <MenuContent />
-        </Box>
+        <Box sx={{ flexGrow: 1 }}>{/* <MenuContent /> */}</Box>
         <Divider />
-
-        <CardAlert />
+        {/* 
+        <CardAlert /> */}
 
         {/* Logout Button */}
         <Button variant="outlined" fullWidth startIcon={<LogoutRoundedIcon />}>
