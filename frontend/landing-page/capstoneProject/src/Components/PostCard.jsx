@@ -85,7 +85,7 @@ export default function PostCard({ post, posts, setPosts }) {
         )}
         {/* show the post body */}
         <Typography color="text.secondary" sx={{ mb: 1 }}>
-          {post.body}
+          {post.description}
         </Typography>
 
         {/* edit and delete buttons */}
