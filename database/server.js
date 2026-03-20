@@ -11,7 +11,7 @@ let likeRoutes = require("./routes/likeRoutes");
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to my Capstone Project Database application." });
+  res.json({ message: "Welcome to my Capstone Project Database application." }); //testing
 });
 
 app.use("/api/users", userRoutes);

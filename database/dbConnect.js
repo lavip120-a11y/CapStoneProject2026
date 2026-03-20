@@ -2,7 +2,7 @@
 
 const { Sequelize } = require("sequelize"); //import sequelize
 
-// Sequelize is a package that abstracts out the need to write SQL queries, relying instead on their models to do it for you.
+// Connecting to MYSQL using environment variables
 const sequelize = new Sequelize(
   process.env.DB_NAME,
   process.env.DB_USER,
@@ -12,7 +12,7 @@ const sequelize = new Sequelize(
     dialect: "mysql",
   },
 );
-
+//creating the connection to MYSQL with success of failure error messages
 const connectMysql = async () => {
   //asynchronous function
   try {
@@ -25,4 +25,4 @@ ${process.env.DB_NAME}`);
   }
 };
 connectMysql(); //call function
-module.exports = { Sequelize: sequelize }; //export
+module.exports = { Sequelize: sequelize }; //exports sequelize for models and controllers to use
