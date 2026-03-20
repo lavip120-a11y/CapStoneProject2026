@@ -13,7 +13,7 @@ function ChatForum() {
       <Box sx={{ p: 3, bgcolor: "background.default", minHeight: "100%" }}>
         {/* Heading */}
         <Typography variant="h4" gutterBottom>
-          Welcome
+          Welcome to Roots Rising
         </Typography>
         {/* forum page with props passed  */}
         <Forum

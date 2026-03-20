@@ -19,7 +19,7 @@ export default function Forum({ posts, setPosts, addPost }) {
       <Box my={4}>
         {/* Title */}
         <Typography variant="h4" gutterBottom>
-          Chat Forum
+          A Chat Forum to provide advice and query your needs
         </Typography>
 
         {/* adding a new post */}
