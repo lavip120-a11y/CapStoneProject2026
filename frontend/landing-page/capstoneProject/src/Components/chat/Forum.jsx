@@ -1,15 +1,15 @@
 import { useState } from "react";
 import { Box, Container, TextField, Button, Typography } from "@mui/material";
-import PostCard from "./PostCard";
+import PostCard from "../chat/PostCard";
 
 export default function Forum({ posts, setPosts, addPost }) {
-  //store new posts from user and adds to posts. resets.
+  //store new posts from user and updating setNewPost.
   const [newPost, setNewPost] = useState("");
 
-  // handler for new posts, removes extra spaces, if the post is empty does not add it.
+  // handler for adding new posts, removes extra spaces, if the post is empty does not add it.
   const handleAddPost = () => {
     if (addPost) {
-      addPost(newPost); //for use hook
+      addPost(newPost);
       setNewPost(""); //clear input field
     }
   };
@@ -38,8 +38,8 @@ export default function Forum({ posts, setPosts, addPost }) {
           </Button>
         </Box>
 
-        {/* generating posts */}
-        {/* posts.map loops over the posts from useState, creates a new array - in the future it will be stored in database */}
+        {/* Displaying posts */}
+        {/* posts.map loops over the posts from useState, creates a new array - stored in database */}
         {posts &&
           posts.map((post) => (
             <PostCard //child component of posts, receiving props from post, posts and setPosts

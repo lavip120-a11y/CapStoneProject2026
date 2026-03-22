@@ -3,8 +3,8 @@ import { ThemeProvider } from "@mui/material/styles"; // wrapping my app so that
 import Box from "@mui/material/Box"; //flexible container
 //import "./App.css";
 import { ProjectTheme } from "./Components/ProjectTheme.jsx"; //custom theme
-import ChatForum from "./Components/ChatForum.jsx"; //Main Landing page
-import Sidebar from "./Components/Sidebar.jsx"; //sidebar for landing page
+import ChatForum from "../src/Components/chat/ChatForum.jsx"; //Main Landing page
+import Sidebar from "../src/Components/sidebar/Sidebar.jsx"; //sidebar for landing page
 import { useMediaQuery } from "@mui/material";
 
 function App() {

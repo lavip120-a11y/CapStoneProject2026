@@ -12,55 +12,31 @@ import {
 } from "@mui/material";
 
 export default function PostCard({ post, posts, setPosts }) {
-  const [comment, setComment] = useState("");
-  const [editing, setEditing] = useState(false); // default false - not editing
-  const [editText, setEditText] = useState(post.title); //storing the original post
+  const [comment, setComment] = useState(""); //stores the new comment
+  const [editing, setEditing] = useState(false); // editing or not (default false - not editing post)
+  const [editText, setEditText] = useState(post.title); //storing the post while its being edited
 
   //adding a comment to a post
   const handleAddComment = () => {
     if (!comment.trim()) return;
-    //updating posts, starts with posts array, map loops through and returns new array
-    const updatedPosts = posts.map((p) =>
-      //checking the id, is this the post we want to comment on? if not keep the original.
-      p.id === post.id
-        ? {
-            ...p, //copy post
-            comments: [
-              //create a new array
-              ...p.comments, //include comments
-              //new comment object
-              {
-                id: Date.now(),
-                text: comment,
-              },
-            ],
-          }
-        : p,
-    );
-    setPosts(updatedPosts); //updating posts using setPosts
+    handleAddComment(post.id, comment);
     setComment(""); //clears the input field
   };
 
   //Delete Post
   const handleDeletePost = () => {
-    //filtering posts, returning all posts without the one that matches the id. setPosts updates posts
-    setPosts(posts.filter((p) => p.id !== post.id));
+    handleDeletePost(post.id);
   };
 
   //save the edited post
   const handleSaveEdit = () => {
-    //map returning new array
-    const updatedPosts = posts.map((p) =>
-      //if the post id matches, create a new post by copying everything in the original post and replacing title with editText.
-      p.id === post.id ? { ...p, title: editText } : p,
-    );
-
-    setPosts(updatedPosts); //updates original posts with the updatedPosts
+    if (!editText.trim()) return;
+    editPost(post.id, editText);
     setEditing(false); //returns to default - not editing
   };
 
   return (
-    // card and cardContent container with spacing around the posts
+    // card and cardContent container controls spacing around the posts
     <Card sx={{ mb: 2 }}>
       <CardContent>
         {/* if editing, show input field and save button */}
@@ -110,7 +86,7 @@ export default function PostCard({ post, posts, setPosts }) {
 
         {/* Comments List */}
         <List>
-          {/* looping over the post comments and returning a listItem - uses id to identify between comments */}
+          {/* looping the post comments and returning a listItem - uses id to identify between comments */}
           {post.comments.map((comment) => (
             <ListItem key={comment.id}>
               <ListItemText primary={comment.text} />

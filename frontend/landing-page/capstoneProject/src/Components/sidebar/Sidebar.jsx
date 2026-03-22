@@ -7,9 +7,9 @@ import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
-import MenuContent from "../Components/MenuContent";
+import MenuContent from "../sidebar/MenuContent";
 import CardGrid from "./CardGrid";
-import cards from "../data/CardData";
+import cards from "../../data/CardData";
 
 export default function SideBar() {
   //selected Card

@@ -7,8 +7,9 @@ export default function useForumPosts() {
   //fetching posts from backend mySQL uing axios
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/posts")
+      .get("http://localhost:8081/api/posts")
       .then((res) => {
+        console.log("Fetched posts:", res.data); //troubleshooting inability to fetch posts from backend DB
         //handling successful response
         //mapping backend data
         const fetchedPosts = res.data.data.map((post) => ({
@@ -27,7 +28,7 @@ export default function useForumPosts() {
     if (!title.trim()) return;
 
     try {
-      const res = await axios.post("http://localhost:8080/api/posts/create", {
+      const res = await axios.post("http://localhost:8081/api/posts/create", {
         title,
         description: "User Post",
         userId: 1,
@@ -61,7 +62,7 @@ export default function useForumPosts() {
   //delete a post
   const deletePost = async (postId) => {
     try {
-      await axios.delete(`http://localhost:8080/api/posts/${postId}`);
+      await axios.delete(`http://localhost:8081/api/posts/${postId}`);
       setPosts((prev) => prev.filter((p) => p.id !== postId));
     } catch (err) {
       console.error("Error deleting post:", err);
@@ -73,11 +74,14 @@ export default function useForumPosts() {
     if (!commentText.trim()) return;
 
     try {
-      const res = await axios.post("http://localhost:8080/api/posts/create", {
-        postId,
-        description: commentText,
-        userId: 1,
-      });
+      const res = await axios.post(
+        "http://localhost:8081/api/comments/create",
+        {
+          postId,
+          description: commentText,
+          userId: 1,
+        },
+      );
 
       setPosts((prev) =>
         prev.map((p) =>
