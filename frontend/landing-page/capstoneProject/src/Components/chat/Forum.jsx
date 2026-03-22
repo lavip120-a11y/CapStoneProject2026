@@ -2,17 +2,28 @@ import { useState } from "react";
 import { Box, Container, TextField, Button, Typography } from "@mui/material";
 import PostCard from "../chat/PostCard";
 
-export default function Forum({ posts, setPosts, addPost }) {
-  //store new posts from user and updating setNewPost.
-  const [newPost, setNewPost] = useState("");
+export default function Forum({
+  posts,
+  setPosts,
+  addPost,
+  editPost,
+  deletePost,
+  addComment,
+}) {
+  //post title
+  const [newTitle, setNewTitle] = useState("");
+  //post description
+  const [newPost, setNewPost] = useState(""); //store new posts from user and updating setNewPost.
 
   // handler for adding new posts, removes extra spaces, if the post is empty does not add it.
   const handleAddPost = () => {
-    if (addPost) {
-      addPost(newPost);
+    if (addPost && newTitle.trim() && newPost.trim()) {
+      addPost(newTitle, newPost, 1); //title, description, userId
+      setNewTitle(""); //clear title field
       setNewPost(""); //clear input field
     }
   };
+
   return (
     // medium width container with top and bottom margins
     <Container maxWidth="md">
@@ -24,6 +35,15 @@ export default function Forum({ posts, setPosts, addPost }) {
 
         {/* adding a new post */}
         <Box display="flex" gap={2} mb={3}>
+          <TextField
+            fullWidth
+            label="Post Title"
+            // updates the Title
+            value={newTitle}
+            // updates state with new title
+            onChange={(e) => setNewTitle(e.target.value)}
+          ></TextField>
+
           <TextField
             fullWidth
             label="Share advice or ask a question"
@@ -47,6 +67,9 @@ export default function Forum({ posts, setPosts, addPost }) {
               post={post} //individual post which populates postCard
               posts={posts} //posts array which postCard accesses
               setPosts={setPosts} // setPosts function updates state and is passed as a prop for children to use if needed.
+              editPost={editPost}
+              deletePost={deletePost}
+              addComment={addComment}
             />
           ))}
       </Box>

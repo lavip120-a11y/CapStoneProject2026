@@ -11,7 +11,7 @@ import {
   ListItemText,
 } from "@mui/material";
 
-export default function PostCard({ post, posts, setPosts }) {
+export default function PostCard({ post, editPost, deletePost, addComment }) {
   const [comment, setComment] = useState(""); //stores the new comment
   const [editing, setEditing] = useState(false); // editing or not (default false - not editing post)
   const [editText, setEditText] = useState(post.title); //storing the post while its being edited
@@ -19,13 +19,13 @@ export default function PostCard({ post, posts, setPosts }) {
   //adding a comment to a post
   const handleAddComment = () => {
     if (!comment.trim()) return;
-    handleAddComment(post.id, comment);
+    addComment(post.id, comment);
     setComment(""); //clears the input field
   };
 
   //Delete Post
   const handleDeletePost = () => {
-    handleDeletePost(post.id);
+    deletePost(post.id);
   };
 
   //save the edited post
@@ -62,6 +62,10 @@ export default function PostCard({ post, posts, setPosts }) {
         {/* show the post body */}
         <Typography color="text.secondary" sx={{ mb: 1 }}>
           {post.description}
+        </Typography>
+        {/* show user id */}
+        <Typography variant="caption" color="text.secondary">
+          Posted by User {post.userId}
         </Typography>
 
         {/* edit and delete buttons */}

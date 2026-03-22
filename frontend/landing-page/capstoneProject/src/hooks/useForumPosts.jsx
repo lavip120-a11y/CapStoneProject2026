@@ -15,7 +15,8 @@ export default function useForumPosts() {
         const fetchedPosts = res.data.data.map((post) => ({
           id: post.id,
           title: post.title,
-          body: post.description,
+          description: post.description,
+          userId: post.userId,
           comments: [], // This is to add comments later.
         }));
         setPosts(fetchedPosts); //update setPosts with fetchedPosts
@@ -24,21 +25,22 @@ export default function useForumPosts() {
   }, []); // useEffect runs once because of the empty array, when the component has loaded
 
   // handler for new posts, removes extra spaces, if the post is empty does not add it.
-  const addPost = async (title) => {
-    if (!title.trim()) return;
+  const addPost = async (title, description, userId = 1) => {
+    if (!title.trim() || !description.trim()) return;
 
     try {
       const res = await axios.post("http://localhost:8081/api/posts/create", {
         title,
-        description: "User Post",
-        userId: 1,
+        description,
+        userId,
       });
 
       setPosts((prev) => [
         {
           id: res.data.data.id,
           title: res.data.data.title,
-          body: res.data.data.description,
+          description: res.data.data.description,
+          userId: res.data.data.userId,
           comments: [],
         },
         ...prev,
@@ -104,5 +106,5 @@ export default function useForumPosts() {
     }
   };
 
-  return { posts, setPosts, addPost, editPost, deletePost, addComment };
+  return { posts, addPost, editPost, deletePost, addComment };
 }
