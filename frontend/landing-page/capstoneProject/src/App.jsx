@@ -6,6 +6,8 @@ import { ProjectTheme } from "./Components/ProjectTheme.jsx"; //custom theme
 import ChatForum from "./Components/ChatForum.jsx"; //Main Landing page
 import Sidebar from "./Components/Sidebar.jsx"; //sidebar for landing page
 import { useMediaQuery } from "@mui/material";
+import SignIn from "./pages/login/sign-in/sign-in.jsx";
+import SignUp from "./pages/login/sign-up/signUp.jsx";
 
 function App() {
   //const [searchTerm, setSearchTerm] = useState(""); // setting up state for use in search bar maybe
@@ -38,9 +40,11 @@ function App() {
           {/* container for chatForumPage - main content - flex takes up space beside the sidebar and padding to space items */}
           <Box sx={{ flexGrow: 1, p: { xs: 2, md: 3 } }}>
             {/* passing searchTerm as a prop inside the Chat page */}
-            <ChatForum
+            {/* <ChatForum
             // searchTerm={searchTerm}
-            ></ChatForum>
+            ></ChatForum> */}
+            <SignIn></SignIn>
+            {/* <SignUp></SignUp> */}
           </Box>
         </Box>
       </ThemeProvider>
