@@ -11,7 +11,7 @@ export default function CardCustom({
   description,
   image,
   onClick,
-  active,
+  //active,
 }) {
   return (
     <Card>
@@ -20,7 +20,7 @@ export default function CardCustom({
         onClick={onClick}
         sx={{
           position: "relative",
-          height: 200,
+          height: 150,
           overflow: "hidden",
           "&:hover img": {
             tranform: "scale(1.05)",
