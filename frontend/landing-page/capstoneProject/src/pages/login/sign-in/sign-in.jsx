@@ -22,6 +22,7 @@ import {
   SitemarkIcon,
 } from "../sharedicons/customIcons";
 
+//main card
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
@@ -41,6 +42,7 @@ const Card = styled(MuiCard)(({ theme }) => ({
   }),
 }));
 
+//centers everything on screen
 const SignInContainer = styled(Stack)(({ theme }) => ({
   height: "calc((1 - var(--template-frame-height, 0)) * 100dvh)",
   minHeight: "100%",
@@ -64,13 +66,15 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
   },
 }));
 
+//
 export default function SignIn(props) {
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState("");
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState("");
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false); //controls ForgotPassword modal
 
+  //handlers
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -118,6 +122,7 @@ export default function SignIn(props) {
     return isValid;
   };
 
+  //User Interface
   return (
     <AppTheme {...props}>
       <CssBaseline enableColorScheme />
@@ -125,8 +130,10 @@ export default function SignIn(props) {
         <ColorModeSelect
           sx={{ position: "fixed", top: "1rem", right: "1rem" }}
         />
+        {/* main box */}
         <Card variant="outlined">
           <SitemarkIcon />
+          {/* title */}
           <Typography
             component="h1"
             variant="h4"
@@ -134,6 +141,7 @@ export default function SignIn(props) {
           >
             Sign in
           </Typography>
+          {/* form */}
           <Box
             component="form"
             onSubmit={handleSubmit}
@@ -147,6 +155,7 @@ export default function SignIn(props) {
           >
             <FormControl>
               <FormLabel htmlFor="email">Email</FormLabel>
+              {/* email input */}
               <TextField
                 error={emailError}
                 helperText={emailErrorMessage}
@@ -164,6 +173,7 @@ export default function SignIn(props) {
             </FormControl>
             <FormControl>
               <FormLabel htmlFor="password">Password</FormLabel>
+              {/* password input */}
               <TextField
                 error={passwordError}
                 helperText={passwordErrorMessage}
@@ -183,7 +193,9 @@ export default function SignIn(props) {
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
             />
+            {/* modal */}
             <ForgotPassword open={open} handleClose={handleClose} />
+            {/* form submit button */}
             <Button
               type="submit"
               fullWidth
