@@ -43,8 +43,8 @@ function App() {
             <ChatForum
             // searchTerm={searchTerm}
             ></ChatForum>
-            {/* <SignIn></SignIn> */}
-            {/* <SignUp></SignUp> */}
+            <SignIn></SignIn>
+            <SignUp></SignUp>
           </Box>
         </Box>
       </ThemeProvider>
