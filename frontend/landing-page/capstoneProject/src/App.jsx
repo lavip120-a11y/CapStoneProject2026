@@ -40,10 +40,10 @@ function App() {
           {/* container for chatForumPage - main content - flex takes up space beside the sidebar and padding to space items */}
           <Box sx={{ flexGrow: 1, p: { xs: 2, md: 3 } }}>
             {/* passing searchTerm as a prop inside the Chat page */}
-            {/* <ChatForum
+            <ChatForum
             // searchTerm={searchTerm}
-            ></ChatForum> */}
-            <SignIn></SignIn>
+            ></ChatForum>
+            {/* <SignIn></SignIn> */}
             {/* <SignUp></SignUp> */}
           </Box>
         </Box>
