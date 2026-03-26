@@ -1,4 +1,5 @@
 const express = require("express"); //import express
+const cors = require("cors");
 const app = express(); //call express
 require("dotenv").config(); //to access .env information to run
 let dbConnect = require("./dbConnect");
@@ -8,6 +9,7 @@ let commentRoutes = require("./routes/commentRoutes");
 let likeRoutes = require("./routes/likeRoutes");
 
 // parse requests of content-type - application/json
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {

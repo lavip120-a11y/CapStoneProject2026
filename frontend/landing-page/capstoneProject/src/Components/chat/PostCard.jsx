@@ -6,15 +6,16 @@ import {
   Button,
   Box,
   Typography,
-  List,
-  ListItem,
-  ListItemText,
+  Divider,
 } from "@mui/material";
 import Comments from "./Comments";
 
 export default function PostCard({ post, editPost, deletePost, addComment }) {
   const [editing, setEditing] = useState(false); // editing or not (default false - not editing post)
   const [editText, setEditText] = useState(post.title); //storing the post while its being edited
+
+  const [showComments, setShowComments] = useState(false);
+  const [likes, setLikes] = useState(0);
 
   //Delete Post
   const handleDeletePost = () => {
@@ -47,14 +48,18 @@ export default function PostCard({ post, editPost, deletePost, addComment }) {
               size="small"
             />
           ) : (
-            <Typography variant="h6">{post.title}</Typography>
+            <Typography variant="h6" fontWeight={600}>
+              {post.title}
+            </Typography>
           )}
+
           <Typography variant="caption" color="text.secondary">
             User {post.userId}
           </Typography>
         </Box>
+
         {/* Post Description */}
-        <Typography variant="body1" color="text.primary" mb={2}>
+        <Typography variant="body1" sx={{ mb: 2 }}>
           {post.description}
         </Typography>
 
@@ -67,11 +72,13 @@ export default function PostCard({ post, editPost, deletePost, addComment }) {
           >
             {editing ? "Cancel" : "Edit"}
           </Button>
+
           {editing && (
             <Button variant="contained" size="small" onClick={handleSaveEdit}>
               Save
             </Button>
           )}
+
           <Button
             variant="outlined"
             size="small"
@@ -82,12 +89,28 @@ export default function PostCard({ post, editPost, deletePost, addComment }) {
           </Button>
         </Box>
 
-        {/* Comments List */}
-        <Comments
-          comments={post.comments}
-          postId={post.id}
-          addComment={addComment}
-        />
+        <Divider sx={{ mb: 1 }} />
+
+        <Box display="flex" gap={3} mb={1}>
+          <Button size="small" onClick={() => setLikes(likes + 1)}>
+            👍Like ({likes})
+          </Button>
+
+          <Button size="small" onClick={() => setShowComments(!showComments)}>
+            💬 {showComments ? "Hide Comments" : "Comments"}
+          </Button>
+        </Box>
+
+        <Divider sx={{ mb: 2 }} />
+
+        {/* Comments Toggle */}
+        {showComments && (
+          <Comments
+            comments={post.comments}
+            postId={post.id}
+            addComment={addComment}
+          />
+        )}
       </CardContent>
     </Card>
   );

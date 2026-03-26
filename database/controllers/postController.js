@@ -2,7 +2,9 @@
 const Models = require("../models");
 // finds all posts in DB, then sends array as response
 const getPosts = (res) => {
-  Models.Post.findAll({})
+  Models.Post.findAll({
+    include: [{ model: Models.Comment }], //include comments with posts
+  })
     .then((data) => {
       res.send({ result: 200, data: data });
     })
@@ -11,6 +13,18 @@ const getPosts = (res) => {
       res.send({ result: 500, error: err.message });
     });
 };
+// finds all posts by specific User
+const getUserPosts = (req, res) => {
+  Models.Post.findAll({ where: { userId: req.params.uid } })
+    .then((data) => {
+      res.send({ result: 200, data: data });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.send({ result: 500, error: err.message });
+    });
+};
+
 // uses JSON from request body to create new post in DB
 const createPost = (data, res) => {
   Models.Post.create(data)
@@ -49,6 +63,7 @@ const deletePost = (req, res) => {
 };
 module.exports = {
   getPosts,
+  getUserPosts,
   createPost,
   updatePost,
   deletePost,

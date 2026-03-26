@@ -56,7 +56,7 @@ export default function Forum({
           value={newPost}
           // updates state with users new post
           onChange={(e) => setNewPost(e.target.value)}
-          muiltiline
+          multiline
           minRows={3}
         ></TextField>
         {/* on click handleAddPost is called and adds the new post */}

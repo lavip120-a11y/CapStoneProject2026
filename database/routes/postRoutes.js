@@ -4,8 +4,14 @@ const Controllers = require("../controllers");
 
 // matches GET requests sent to /api/posts
 // (the prefix from server.js)
+//get all posts
 router.get("/", (req, res) => {
   Controllers.postController.getPosts(res);
+});
+
+//get posts by userid
+router.get("/user/:uid", (req, res) => {
+  Controllers.postController.getUserPosts(req, res);
 });
 
 // matches POST requests sent to /api/post/create
