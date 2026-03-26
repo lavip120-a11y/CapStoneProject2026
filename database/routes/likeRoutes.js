@@ -14,11 +14,11 @@ router.post("/create", (req, res) => {
   Controllers.likeController.createLike(req.body, res); //passing the body when using thunderclient
 });
 
-// matches PUT requests to /api/like/123 (stores 123 in id param)
+// matches PUT requests to /api/likes/123 (stores 123 in id param)
 router.put("/:id", (req, res) => {
   Controllers.likeController.updateLike(req, res);
 });
-// matches DELETE requests to /api/like/123 (123 in id param)
+// matches DELETE requests to /api/likes/123 (123 in id param)
 router.delete("/:id", (req, res) => {
   Controllers.likeController.deleteLike(req, res);
 });
