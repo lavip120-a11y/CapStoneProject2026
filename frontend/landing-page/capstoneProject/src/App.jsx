@@ -6,6 +6,8 @@ import { ProjectTheme } from "./Components/ProjectTheme.jsx"; //custom theme
 import ChatForum from "../src/Components/chat/ChatForum.jsx"; //Main Landing page
 import Sidebar from "../src/Components/sidebar/Sidebar.jsx"; //sidebar for landing page
 import { useMediaQuery } from "@mui/material";
+import SignIn from "./pages/login/sign-in/sign-in.jsx";
+import SignUp from "./pages/login/sign-up/signUp.jsx";
 
 function App() {
   //const [searchTerm, setSearchTerm] = useState(""); // setting up state for use in search bar maybe
@@ -41,6 +43,8 @@ function App() {
             <ChatForum
             // searchTerm={searchTerm}
             ></ChatForum>
+            {/* <SignIn></SignIn> */}
+            {/* <SignUp></SignUp> */}
           </Box>
         </Box>
       </ThemeProvider>
