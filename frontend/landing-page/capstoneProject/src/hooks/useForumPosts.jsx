@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function useForumPosts() {
+//adding userId as a parameter so that userId can be provided to return only posts specifi to user
+export default function useForumPosts(userId = null) {
   const [posts, setPosts] = useState([]); //storing posts in state, is empty to start
 
   //fetching posts from backend mySQL uing axios
@@ -9,7 +10,7 @@ export default function useForumPosts() {
     axios
       .get("http://localhost:8081/api/posts")
       .then((res) => {
-        console.log("Fetched posts:", res.data); //troubleshooting inability to fetch posts from backend DB
+        console.log("Fetched posts and comments:", res.data); //troubleshooting inability to fetch posts from backend DB
         //handling successful response
         //mapping backend data
         const fetchedPosts = res.data.data.map((post) => ({
@@ -17,7 +18,7 @@ export default function useForumPosts() {
           title: post.title,
           description: post.description,
           userId: post.userId,
-          comments: [], // This is to add comments later.
+          comments: post.comments || [], // add comments.
         }));
         setPosts(fetchedPosts); //update setPosts with fetchedPosts
       })

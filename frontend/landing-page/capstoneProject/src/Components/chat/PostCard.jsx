@@ -13,16 +13,8 @@ import {
 import Comments from "./Comments";
 
 export default function PostCard({ post, editPost, deletePost, addComment }) {
-  const [comment, setComment] = useState(""); //stores the new comment
   const [editing, setEditing] = useState(false); // editing or not (default false - not editing post)
   const [editText, setEditText] = useState(post.title); //storing the post while its being edited
-
-  //adding a comment to a post
-  const handleAddComment = () => {
-    if (!comment.trim()) return;
-    addComment(post.id, comment);
-    setComment(""); //clears the input field
-  };
 
   //Delete Post
   const handleDeletePost = () => {
@@ -84,7 +76,7 @@ export default function PostCard({ post, editPost, deletePost, addComment }) {
             variant="outlined"
             size="small"
             color="error"
-            onclick={handleDeletePost}
+            onClick={handleDeletePost}
           >
             Delete
           </Button>
