@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
-  Box,
+  Card,
+  CardContent,
   Container,
   TextField,
   Button,
@@ -33,37 +34,40 @@ export default function Forum({
   return (
     // medium width container with top and bottom margins
     <Container maxWidth="md" sx={{ py: 4 }}>
-      {/* Heading */}
-      <Typography variant="h4" gutterBottom sx={{ mb: 3 }}>
-        A Chat Forum to provide advice and query your needs
-      </Typography>
+      <Card sx={{ mb: 3, borderRadius: 2, boxShadow: 3 }} />
+      <CardContent>
+        {/* Heading */}
+        <Typography variant="h6" gutterBottom sx={{ mb: 3 }}>
+          A Chat Forum to provide advice and query your needs
+        </Typography>
 
-      {/* adding a new post */}
-      <Stack spacing={2} mb={3}>
-        <TextField
-          fullWidth
-          label="Post Title"
-          // updates the Title
-          value={newTitle}
-          // updates state with new title
-          onChange={(e) => setNewTitle(e.target.value)}
-        ></TextField>
+        {/* adding a new post */}
+        <Stack spacing={2} mb={3}>
+          <TextField
+            fullWidth
+            label="Post Topic ..."
+            // updates the topic (title) - this will eventually have a drop down with topics to choose
+            value={newTitle}
+            // updates state with new title
+            onChange={(e) => setNewTitle(e.target.value)}
+          ></TextField>
 
-        <TextField
-          fullWidth
-          label="Share advice or ask a question"
-          // newPost updates the textfield
-          value={newPost}
-          // updates state with users new post
-          onChange={(e) => setNewPost(e.target.value)}
-          multiline
-          minRows={3}
-        ></TextField>
-        {/* on click handleAddPost is called and adds the new post */}
-        <Button variant="contained" onClick={handleAddPost}>
-          Post
-        </Button>
-      </Stack>
+          <TextField
+            fullWidth
+            label="Ask a question or share advice ..."
+            // newPost updates the textfield
+            value={newPost}
+            // updates state with users new post
+            onChange={(e) => setNewPost(e.target.value)}
+            multiline
+            minRows={3}
+          ></TextField>
+          {/* on click handleAddPost is called and adds the new post */}
+          <Button variant="contained" onClick={handleAddPost}>
+            Post
+          </Button>
+        </Stack>
+      </CardContent>
 
       {/* Displaying posts */}
       {/* posts.map loops over the posts from useState, creates a new array - stored in database */}
