@@ -10,6 +10,7 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
+import Comments from "./Comments";
 
 export default function PostCard({ post, editPost, deletePost, addComment }) {
   const [comment, setComment] = useState(""); //stores the new comment
@@ -37,38 +38,35 @@ export default function PostCard({ post, editPost, deletePost, addComment }) {
 
   return (
     // card and cardContent container controls spacing around the posts
-    <Card sx={{ mb: 2 }}>
+    <Card sx={{ mb: 3, borderRadius: 2, boxShadow: 3 }}>
       <CardContent>
-        {/* if editing, show input field and save button */}
-        {editing ? (
-          <Box display="flex" gap={2} mb={1}>
+        {/* header - title and user */}
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+          mb={1}
+        >
+          {editing ? (
             <TextField //editText is updated by setEditText
               fullWidth
               value={editText}
               onChange={(e) => setEditText(e.target.value)}
               size="small"
             />
-
-            <Button variant="contained" size="small" onClick={handleSaveEdit}>
-              Save
-            </Button>
-          </Box>
-        ) : (
-          //if not editing, show title
-          <Typography variant="subtitle1" fontWeight={500}>
-            {post.title}
+          ) : (
+            <Typography variant="h6">{post.title}</Typography>
+          )}
+          <Typography variant="caption" color="text.secondary">
+            User {post.userId}
           </Typography>
-        )}
-        {/* show the post body */}
-        <Typography color="text.secondary" sx={{ mb: 1 }}>
+        </Box>
+        {/* Post Description */}
+        <Typography variant="body1" color="text.primary" mb={2}>
           {post.description}
         </Typography>
-        {/* show user id */}
-        <Typography variant="caption" color="text.secondary">
-          Posted by User {post.userId}
-        </Typography>
 
-        {/* edit and delete buttons */}
+        {/* Action Buttons */}
         <Box display="flex" gap={1} mb={2}>
           <Button
             variant="outlined"
@@ -77,41 +75,27 @@ export default function PostCard({ post, editPost, deletePost, addComment }) {
           >
             {editing ? "Cancel" : "Edit"}
           </Button>
-
+          {editing && (
+            <Button variant="contained" size="small" onClick={handleSaveEdit}>
+              Save
+            </Button>
+          )}
           <Button
             variant="outlined"
             size="small"
             color="error"
-            onClick={handleDeletePost}
+            onclick={handleDeletePost}
           >
             Delete
           </Button>
         </Box>
 
         {/* Comments List */}
-        <List>
-          {/* looping the post comments and returning a listItem - uses id to identify between comments */}
-          {post.comments.map((comment) => (
-            <ListItem key={comment.id}>
-              <ListItemText primary={comment.text} />
-            </ListItem>
-          ))}
-        </List>
-
-        {/* Add Comment Input field - box with textfield and button in a row, spacing and margintop */}
-        <Box display="flex" gap={2} mt={1}>
-          <TextField
-            fullWidth
-            label="Add a response/comment"
-            value={comment} //shows original comment stored in state
-            onChange={(e) => setComment(e.target.value)} //updates state
-            size="small"
-          />
-          {/* onclick calls handleAddComment function which updates state and clears textfield. */}
-          <Button variant="outlined" size="small" onClick={handleAddComment}>
-            Comment
-          </Button>
-        </Box>
+        <Comments
+          comments={post.comments}
+          postId={post.id}
+          addComment={addComment}
+        />
       </CardContent>
     </Card>
   );

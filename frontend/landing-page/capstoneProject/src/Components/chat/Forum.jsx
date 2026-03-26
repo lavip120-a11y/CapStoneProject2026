@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Box, Container, TextField, Button, Typography } from "@mui/material";
+import {
+  Box,
+  Container,
+  TextField,
+  Button,
+  Typography,
+  Stack,
+} from "@mui/material";
 import PostCard from "../chat/PostCard";
 
 export default function Forum({
@@ -17,49 +24,50 @@ export default function Forum({
 
   // handler for adding new posts, removes extra spaces, if the post is empty does not add it.
   const handleAddPost = () => {
-    if (addPost && newTitle.trim() && newPost.trim()) {
-      addPost(newTitle, newPost, 1); //title, description, userId
-      setNewTitle(""); //clear title field
-      setNewPost(""); //clear input field
-    }
+    if (!newTitle.trim() || !newPost.trim()) return;
+    addPost(newTitle, newPost, 1); //title, description, userId
+    setNewTitle(""); //clear title field
+    setNewPost(""); //clear input field
   };
 
   return (
     // medium width container with top and bottom margins
-    <Container maxWidth="md">
-      <Box my={4}>
-        {/* Title */}
-        <Typography variant="h4" gutterBottom>
-          A Chat Forum to provide advice and query your needs
-        </Typography>
+    <Container maxWidth="md" sx={{ py: 4 }}>
+      {/* Heading */}
+      <Typography variant="h4" gutterBottom sx={{ mb: 3 }}>
+        A Chat Forum to provide advice and query your needs
+      </Typography>
 
-        {/* adding a new post */}
-        <Box display="flex" gap={2} mb={3}>
-          <TextField
-            fullWidth
-            label="Post Title"
-            // updates the Title
-            value={newTitle}
-            // updates state with new title
-            onChange={(e) => setNewTitle(e.target.value)}
-          ></TextField>
+      {/* adding a new post */}
+      <Stack spacing={2} mb={3}>
+        <TextField
+          fullWidth
+          label="Post Title"
+          // updates the Title
+          value={newTitle}
+          // updates state with new title
+          onChange={(e) => setNewTitle(e.target.value)}
+        ></TextField>
 
-          <TextField
-            fullWidth
-            label="Share advice or ask a question"
-            // newPost updates the textfield
-            value={newPost}
-            // updates state with users new post
-            onChange={(e) => setNewPost(e.target.value)}
-          ></TextField>
-          {/* on click handleAddPost is called and adds the new post */}
-          <Button variant="contained" onClick={handleAddPost}>
-            Post
-          </Button>
-        </Box>
+        <TextField
+          fullWidth
+          label="Share advice or ask a question"
+          // newPost updates the textfield
+          value={newPost}
+          // updates state with users new post
+          onChange={(e) => setNewPost(e.target.value)}
+          muiltiline
+          minRows={3}
+        ></TextField>
+        {/* on click handleAddPost is called and adds the new post */}
+        <Button variant="contained" onClick={handleAddPost}>
+          Post
+        </Button>
+      </Stack>
 
-        {/* Displaying posts */}
-        {/* posts.map loops over the posts from useState, creates a new array - stored in database */}
+      {/* Displaying posts */}
+      {/* posts.map loops over the posts from useState, creates a new array - stored in database */}
+      <Stack spacing={3}>
         {posts &&
           posts.map((post) => (
             <PostCard //child component of posts, receiving props from post, posts and setPosts
@@ -72,7 +80,7 @@ export default function Forum({
               addComment={addComment}
             />
           ))}
-      </Box>
+      </Stack>
     </Container>
   );
 }
