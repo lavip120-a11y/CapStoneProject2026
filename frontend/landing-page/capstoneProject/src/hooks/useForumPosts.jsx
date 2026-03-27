@@ -19,6 +19,8 @@ export default function useForumPosts(userId = null) {
           description: post.description,
           userId: post.userId,
           comments: post.comments || [], // add comments.
+          likes: 0, // count for likes
+          liked: false, //track if user liked (locally for now)
         }));
         setPosts(fetchedPosts); //update setPosts with fetchedPosts
       })
@@ -106,6 +108,20 @@ export default function useForumPosts(userId = null) {
       console.error("Error adding comment:", err);
     }
   };
+  //add likes
+  const toggleLike = (postId) => {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post.id === postId
+          ? {
+              ...post,
+              liked: !post.liked,
+              likes: post.liked ? post.likes - 1 : post.likes + 1,
+            }
+          : post,
+      ),
+    );
+  };
 
-  return { posts, addPost, editPost, deletePost, addComment };
+  return { posts, addPost, editPost, deletePost, addComment, toggleLike };
 }

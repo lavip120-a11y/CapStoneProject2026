@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Checkbox from "@mui/material/Checkbox";
@@ -16,6 +17,7 @@ import ForgotPassword from "../sign-in/forgotPassword";
 import AppTheme from "../sharedtheme/appTheme";
 import ColorModeSelect from "../sharedtheme/colorModeSelect";
 import logo from "../../../assets/logo.png";
+import axios from "axios";
 
 //main card
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -62,34 +64,20 @@ const SignInContainer = styled(Stack)(({ theme }) => ({
 }));
 
 //
-export default function SignIn(props) {
+export default function SignIn({ setUser }) {
+  const navigate = useNavigate();
+
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState("");
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState("");
   const [open, setOpen] = React.useState(false); //controls ForgotPassword modal
 
-  //handlers
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  //Modal handlers
+  const handleClickOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleSubmit = (event) => {
-    if (emailError || passwordError) {
-      event.preventDefault();
-      return;
-    }
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
-  };
-
+  // validate inputs
   const validateInputs = () => {
     const email = document.getElementById("email");
     const password = document.getElementById("password");
@@ -117,9 +105,37 @@ export default function SignIn(props) {
     return isValid;
   };
 
+  // form submit
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (!validateInputs()) return;
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    try {
+      const res = await axios.post("http://localhost:8081/api/users/login", {
+        email,
+        password,
+      });
+      //backend returns user
+      if (res.data.result === 200) {
+        setUser(res.data.user); //update state
+        navigate("/chatforum"); //navigate to chat forum
+      } else if (res.data.result === 401) {
+        alert(res.data.message); // show unauthorised message
+      } else {
+        alert("Something went wrong. Try again");
+      }
+    } catch (err) {
+      console.error("Login failed:", err);
+      alert("Error.  Please try again later");
+    }
+  };
+
   //User Interface
   return (
-    <AppTheme {...props}>
+    <AppTheme>
       <CssBaseline enableColorScheme />
       <SignInContainer direction="column" justifyContent="space-between">
         <ColorModeSelect
@@ -201,12 +217,7 @@ export default function SignIn(props) {
             {/* modal */}
             <ForgotPassword open={open} handleClose={handleClose} />
             {/* form submit button */}
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              onClick={validateInputs}
-            >
+            <Button type="submit" fullWidth variant="contained">
               Sign in
             </Button>
             <Link
@@ -218,6 +229,16 @@ export default function SignIn(props) {
             >
               Forgot your password?
             </Link>
+            <Typography sx={{ textAlign: "center" }}>
+              Don't have an account?{" "}
+              <Link
+                href="/sign-up"
+                variant="body2"
+                sx={{ alignSelf: "center" }}
+              >
+                Sign up
+              </Link>
+            </Typography>
           </Box>
         </Card>
       </SignInContainer>
