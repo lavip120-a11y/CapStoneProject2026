@@ -1,4 +1,6 @@
 import * as React from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -56,17 +58,21 @@ const SignUpContainer = styled(Stack)(({ theme }) => ({
 }));
 
 export default function SignUp(props) {
+  const navigate = useNavigate();
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState("");
   const [passwordError, setPasswordError] = React.useState(false);
   const [passwordErrorMessage, setPasswordErrorMessage] = React.useState("");
   const [nameError, setNameError] = React.useState(false);
   const [nameErrorMessage, setNameErrorMessage] = React.useState("");
+  const [birthdateError, setBirthdateError] = React.useState(false);
+  const [birthdateErrorMessage, setBirthdateErrorMessage] = React.useState("");
 
   const validateInputs = () => {
     const email = document.getElementById("email");
     const password = document.getElementById("password");
     const name = document.getElementById("name");
+    const birthdate = document.getElementById("birthdate");
 
     let isValid = true;
 
@@ -97,21 +103,45 @@ export default function SignUp(props) {
       setNameErrorMessage("");
     }
 
+    if (!birthdate.value) {
+      setBirthdateError(true);
+      setBirthdateErrorMessage("Please enter a valid birth date.");
+      isValid = false;
+    } else {
+      setBirthdateError(false);
+      setBirthdateErrorMessage("");
+    }
     return isValid;
   };
 
-  const handleSubmit = (event) => {
-    if (nameError || emailError || passwordError) {
-      event.preventDefault();
-      return;
-    }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!validateInputs()) return;
+
     const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get("name"),
-      lastName: data.get("lastName"),
+    const signIn = {
+      userName: data.get("name"),
+      birthdate: data.get("birthdate"),
       email: data.get("email"),
       password: data.get("password"),
-    });
+    };
+
+    try {
+      const res = await axios.post(
+        "http://localhost:8081/api/users/create",
+        signIn,
+      );
+      if (res.data.result === 200) {
+        alert("Signup successful continue to log in");
+        navigate("/login");
+      } else {
+        alert("Signup failed: " + res.data.error);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Error signing up: " + err.message);
+    }
   };
 
   return (
@@ -169,7 +199,7 @@ export default function SignUp(props) {
                 variant="outlined"
                 error={emailError}
                 helperText={emailErrorMessage}
-                color={passwordError ? "error" : "primary"}
+                color={emailError ? "error" : "primary"}
               />
             </FormControl>
             <FormControl>
@@ -188,13 +218,25 @@ export default function SignUp(props) {
                 color={passwordError ? "error" : "primary"}
               />
             </FormControl>
+            <FormControl>
+              <FormLabel htmlFor="birthdate">Birthdate</FormLabel>
+              <TextField
+                required
+                fullWidth
+                id="birthdate"
+                name="birthdate"
+                type="date"
+                variant="outlined"
+                error={birthdateError}
+                helperText={birthdateErrorMessage}
+                color={birthdateError ? "error" : "primary"}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </FormControl>
 
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              onClick={validateInputs}
-            >
+            <Button type="submit" fullWidth variant="contained">
               Sign up
             </Button>
           </Box>
