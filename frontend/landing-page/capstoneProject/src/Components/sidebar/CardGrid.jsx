@@ -9,8 +9,8 @@ export default function CardGrid({ cards, selectedCardIndex, onSelect }) {
       sx={{
         width: "100%",
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(min(220px, 100%), 1fr))",
-        gap: 2,
+        gridTemplateColumns: "1fr",
+        gap: 1,
       }}
     >
       {cards.map(

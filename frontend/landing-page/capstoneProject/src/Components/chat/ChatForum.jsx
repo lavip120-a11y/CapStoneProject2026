@@ -10,11 +10,20 @@ function ChatForum() {
   return (
     <>
       {/* matching the mui theme and sidebar */}
-      <Box sx={{ p: 3, bgcolor: "background.default", minHeight: "100%" }}>
+      <Box
+        sx={{
+          p: 3,
+          bgcolor: "background.default",
+          minHeight: "100%",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
         {/* Heading */}
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h4" gutterBottom sx={{ mb: 4 }}>
           Welcome to Tairawhiti Rising
         </Typography>
+
         {/* props passed to forum */}
         <Forum
           posts={posts}

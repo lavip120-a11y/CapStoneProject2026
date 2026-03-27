@@ -6,15 +6,20 @@ import Typography from "@mui/material/Typography";
 import CardActionArea from "@mui/material/CardActionArea";
 
 //props
-export default function CardCustom({
-  title,
-  description,
-  image,
-  onClick,
-  //active,
-}) {
+export default function CardCustom({ title, description, image, onClick }) {
   return (
-    <Card>
+    <Card
+      sx={{
+        width: "100%",
+        borderRadius: 2,
+        overflow: "hidden",
+        boxShadow: 1,
+        transition: "box-shadow 0.3s",
+        "&:hover": {
+          boxShadow: 6,
+        },
+      }}
+    >
       {/* making the card clickable */}
       <CardActionArea
         onClick={onClick}
@@ -23,7 +28,7 @@ export default function CardCustom({
           height: 150,
           overflow: "hidden",
           "&:hover img": {
-            tranform: "scale(1.05)",
+            transform: "scale(1.05)",
           },
         }}
       >
@@ -46,13 +51,12 @@ export default function CardCustom({
             position: "absolute",
             inset: 0,
             background:
-              "linear-gradient(to top, rgba(0,0,0,0.7, rgba(0,0,0,0.2))",
+              "linear-gradient(to top, rgba(0,0,0,0.4), rgba(0,0,0,0)",
           }}
         />
         {/* text */}
         <Box sx={{ position: "absolute", bottom: 0, p: 2, color: "white" }}>
           <Typography variant="h6">{title}</Typography>
-
           {description && (
             <Typography variant="body2">{description}</Typography>
           )}

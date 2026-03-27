@@ -1,10 +1,9 @@
 import { useState } from "react"; //importing usestate from react as a temporary placeholder for searchterm
-import { ThemeProvider } from "@mui/material/styles"; // wrapping my app so that ProjectTheme can be applied
 import Box from "@mui/material/Box"; //flexible container
-import { ProjectTheme } from "./Components/ProjectTheme.jsx"; //custom theme
+import AppTheme from "./pages/login/sharedtheme/appTheme.jsx"; //// wrapping my app so that AppTheme can be applied
+import { CssBaseline, useMediaQuery } from "@mui/material";
 import ChatForum from "../src/Components/chat/ChatForum.jsx"; //Main Landing page
 import Sidebar from "../src/Components/sidebar/Sidebar.jsx"; //sidebar for landing page
-import { useMediaQuery } from "@mui/material";
 import SignIn from "./pages/login/sign-in/sign-in.jsx";
 import SignUp from "./pages/login/sign-up/signUp.jsx";
 import {
@@ -34,24 +33,20 @@ function App() {
     /* wrapping app in project theme */
   }
   return (
-    <ThemeProvider theme={ProjectTheme}>
+    <AppTheme>
+      <CssBaseline enableColorScheme />
       {/* main container for the landing/main/home page - flex for side by side view */}
       <Router>
         <Box
           sx={{
-            display: { xs: "block", md: "flex" },
+            display: "flex",
             height: "100vh",
             bgcolor: "background.default",
           }}
         >
           {/* Sidebar - desktop or mobile*/}
           {isDesktop ? (
-            <Sidebar
-              open={true}
-              toggleDrawer={() => {}}
-              user={user}
-              setUser={setUser}
-            />
+            <Sidebar user={user} setUser={setUser} />
           ) : (
             <Sidebar
               open={sidebarOpen}
@@ -62,7 +57,14 @@ function App() {
           )}
 
           {/* container for chatForumPage - main content - flex takes up space beside the sidebar and padding to space items */}
-          <Box sx={{ flexGrow: 1, p: { xs: 2, md: 3 } }}>
+          <Box
+            sx={{
+              flexGrow: 1,
+              p: { xs: 2, md: 4 },
+              ml: { md: "250px" },
+              backgroundColor: "background.default",
+            }}
+          >
             <Routes>
               {/* login page */}
               <Route path="/login" element={<SignIn setUser={setUser} />} />
@@ -75,7 +77,18 @@ function App() {
                 path="/chatforum"
                 element={
                   <ProtectedRoute user={user}>
-                    <ChatForum searchTerm={searchTerm} />
+                    <Box
+                      sx={{
+                        maxWidth: 1200,
+                        margin: "0 auto",
+                        backgroundColor: "background.paper",
+                        borderRadius: 3,
+                        p: 3,
+                        boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
+                      }}
+                    >
+                      <ChatForum searchTerm={searchTerm} />
+                    </Box>
                   </ProtectedRoute>
                 }
               />
@@ -85,7 +98,7 @@ function App() {
           </Box>
         </Box>
       </Router>
-    </ThemeProvider>
+    </AppTheme>
   );
 }
 
