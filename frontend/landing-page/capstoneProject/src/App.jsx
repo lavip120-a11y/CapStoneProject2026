@@ -44,11 +44,21 @@ function App() {
             bgcolor: "background.default",
           }}
         >
-          {/* Sidebar */}
+          {/* Sidebar - desktop or mobile*/}
           {isDesktop ? (
-            <Sidebar open={true} toggleDrawer={() => {}} />
+            <Sidebar
+              open={true}
+              toggleDrawer={() => {}}
+              user={user}
+              setUser={setUser}
+            />
           ) : (
-            <Sidebar open={sidebarOpen} toggleDrawer={toggleDrawer} />
+            <Sidebar
+              open={sidebarOpen}
+              toggleDrawer={toggleDrawer}
+              user={user}
+              setUser={setUser}
+            />
           )}
 
           {/* container for chatForumPage - main content - flex takes up space beside the sidebar and padding to space items */}

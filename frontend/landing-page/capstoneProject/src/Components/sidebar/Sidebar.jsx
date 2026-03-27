@@ -1,19 +1,20 @@
 import * as React from "react";
-import { useState } from "react";
-import Box from "@mui/material/Box";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
+import { useNavigate } from "react-router-dom";
+import { Box, Avatar, Button, Divider, Stack, Typography } from "@mui/material";
 import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
 import MenuContent from "../sidebar/MenuContent";
 import CardGrid from "./CardGrid";
 import cards from "../../data/CardData";
 
-export default function SideBar() {
+export default function SideBar({ user, setUser }) {
   //selected Card
   const [selectedCardIndex, setSelectedCardIndex] = React.useState(null);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    setUser(null); // clear user
+    navigate("/login"); //navigate to login page
+  };
 
   return (
     <Box
@@ -27,7 +28,9 @@ export default function SideBar() {
             src="/static/images/avatar/7.jpg"
             sx={{ width: 32, height: 32 }}
           />
-          <Typography variant="h6">Visitor</Typography>
+          <Typography variant="h6">
+            {user ? user.userName : "Visitor"}
+          </Typography>
         </Stack>
         <Divider />
 
@@ -76,7 +79,12 @@ export default function SideBar() {
         </Box>
 
         {/* Logout Button */}
-        <Button variant="outlined" fullWidth startIcon={<LogoutRoundedIcon />}>
+        <Button
+          variant="outlined"
+          fullWidth
+          startIcon={<LogoutRoundedIcon />}
+          onClick={handleLogout}
+        >
           Logout
         </Button>
       </Stack>
