@@ -47,9 +47,32 @@ const deleteUser = (req, res) => {
       res.send({ result: 500, error: err.message });
     });
 };
+// user login
+const loginUser = async (data, res) => {
+  console.log("Received body:", data);
+  const { email, password } = data;
+
+  try {
+    const user = await Models.User.findOne({ where: { email } });
+    if (!user) {
+      return res.status(401).send({ result: 401, message: "User not found" });
+    }
+    if (user.password !== password) {
+      return res
+        .status(401)
+        .send({ result: 401, message: "Incorrect password" });
+    }
+    res.send({ result: 200, user });
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({ result: 500, error: err.message });
+  }
+};
+
 module.exports = {
   getUsers,
   createUser,
   updateUser,
   deleteUser,
+  loginUser,
 };

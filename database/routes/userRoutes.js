@@ -13,6 +13,11 @@ router.post("/create", (req, res) => {
   Controllers.userController.createUser(req.body, res); //passing the body for testing post method when using thunderclient
 });
 
+//sign in.jsx calls api/user/login
+router.post("/login", (req, res) => {
+  Controllers.userController.loginUser(req.body, res);
+});
+
 // matches PUT requests to /api/users/123 (stores 123 in id param)
 router.put("/:id", (req, res) => {
   Controllers.userController.updateUser(req, res);
