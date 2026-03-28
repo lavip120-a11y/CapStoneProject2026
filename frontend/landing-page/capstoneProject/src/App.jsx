@@ -1,11 +1,12 @@
 import { useState } from "react"; //importing usestate from react as a temporary placeholder for searchterm
 import Box from "@mui/material/Box"; //flexible container
 import AppTheme from "./pages/login/sharedtheme/appTheme.jsx"; //// wrapping my app so that AppTheme can be applied
-import { CssBaseline, useMediaQuery } from "@mui/material";
+import { CssBaseline, Typography, useMediaQuery } from "@mui/material";
 import ChatForum from "../src/Components/chat/ChatForum.jsx"; //Main Landing page
 import Sidebar from "../src/Components/sidebar/Sidebar.jsx"; //sidebar for landing page
 import SignIn from "./pages/login/sign-in/sign-in.jsx";
 import SignUp from "./pages/login/sign-up/signUp.jsx";
+import Welcome from "./pages/welcome.jsx";
 import {
   BrowserRouter as Router,
   Routes,
@@ -30,7 +31,7 @@ function App() {
     setSidebarOpen(open);
   };
   {
-    /* wrapping app in project theme */
+    /* wrapping app in Apptheme for consistent styling */
   }
   return (
     <AppTheme>
@@ -66,6 +67,14 @@ function App() {
             }}
           >
             <Routes>
+              {/* Welcome Page */}
+              <Route
+                path="/"
+                element={
+                  !user ? <Welcome /> : <Navigate to="/chatforum" replace />
+                }
+              />
+
               {/* login page */}
               <Route path="/login" element={<SignIn setUser={setUser} />} />
 

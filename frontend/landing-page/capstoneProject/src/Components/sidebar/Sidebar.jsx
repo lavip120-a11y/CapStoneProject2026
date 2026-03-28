@@ -48,38 +48,19 @@ export default function SideBar({ user, setUser, open, toggleDrawer }) {
           <Typography variant="subtitle1" fontWeight="bold">
             {user?.userName || "Visitor"}
           </Typography>
+
+          {/* Theme toggle */}
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <ColorModeSelect />
+          </Box>
         </Stack>
         <Divider />
 
-        {/* Menu Links */}
+        {/* Menu Links
         <Box sx={{ flexGrow: 1 }}>
           <MenuContent />
         </Box>
-        <Divider />
-
-        {/* Theme toggle */}
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <ColorModeSelect />
-        </Box>
-
-        {/* Logout Button */}
-        <Button
-          variant="contained"
-          fullWidth
-          startIcon={<LogoutRoundedIcon />}
-          onClick={handleLogout}
-          sx={{
-            bgcolor: "primary.main",
-            color: "white",
-            fontWeight: "bold",
-            "&:hover": {
-              backgroundColor: "#0f5397",
-            },
-            borderRadius: 1,
-          }}
-        >
-          Logout
-        </Button>
+        <Divider /> */}
 
         {/* Cards */}
         <Box sx={{ mt: 2 }}>
@@ -119,6 +100,24 @@ export default function SideBar({ user, setUser, open, toggleDrawer }) {
             </Box>
           )}
         </Box>
+        {/* Logout Button */}
+        <Button
+          variant="contained"
+          fullWidth
+          startIcon={<LogoutRoundedIcon />}
+          onClick={handleLogout}
+          sx={{
+            bgcolor: "primary.main",
+            color: "white",
+            fontWeight: "bold",
+            "&:hover": {
+              backgroundColor: "#0f5397",
+            },
+            borderRadius: 1,
+          }}
+        >
+          Logout
+        </Button>
       </Stack>
     </Box>
   );

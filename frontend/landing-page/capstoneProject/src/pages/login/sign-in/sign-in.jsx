@@ -16,7 +16,6 @@ import MuiCard from "@mui/material/Card";
 import { styled } from "@mui/material/styles";
 import ForgotPassword from "../sign-in/forgotPassword";
 import AppTheme from "../sharedtheme/appTheme";
-import ColorModeSelect from "../sharedtheme/colorModeSelect";
 import logo from "../../../assets/logo.png";
 import axios from "axios";
 
@@ -139,9 +138,6 @@ export default function SignIn({ setUser }) {
     <AppTheme>
       <CssBaseline enableColorScheme />
       <SignInContainer direction="column" justifyContent="space-between">
-        <ColorModeSelect
-          sx={{ position: "fixed", top: "1rem", right: "1rem" }}
-        />
         {/* main box */}
         <Card variant="outlined">
           <Box
