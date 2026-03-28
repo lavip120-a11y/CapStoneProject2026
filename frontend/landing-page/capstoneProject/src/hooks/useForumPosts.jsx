@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-//adding userId as a parameter so that userId can be provided to return only posts specifi to user
-export default function useForumPosts(userId = null) {
+//adding logged in user as a parameter so that userId can be provided for posts and comments
+export default function useForumPosts(user) {
   const [posts, setPosts] = useState([]); //storing posts in state, is empty to start
 
   //fetching posts from backend mySQL uing axios
@@ -13,29 +13,37 @@ export default function useForumPosts(userId = null) {
         console.log("Fetched posts and comments:", res.data); //troubleshooting inability to fetch posts from backend DB
         //handling successful response
         //mapping backend data
-        const fetchedPosts = res.data.data.map((post) => ({
-          id: post.id,
-          title: post.title,
-          description: post.description,
-          userId: post.userId,
-          comments: post.comments || [], // add comments.
-          likes: 0, // count for likes
-          liked: false, //track if user liked (locally for now)
-        }));
+        const fetchedPosts = res.data.data
+          .map((post) => ({
+            id: post.id,
+            title: post.title,
+            description: post.description,
+            userId: post.userId,
+            comments: post.comments || [], // add comments.
+            likes: 0, // count for likes
+            liked: false, //track if user liked (locally for now)
+          }))
+          .sort((a, b) => b.id - a.id); //sorting newest first
         setPosts(fetchedPosts); //update setPosts with fetchedPosts
       })
       .catch((err) => console.error("Error fetching:", err)); //logging error
   }, []); // useEffect runs once because of the empty array, when the component has loaded
 
   // handler for new posts, removes extra spaces, if the post is empty does not add it.
-  const addPost = async (title, description, userId = 1) => {
+  const addPost = async (title, description, userId) => {
     if (!title.trim() || !description.trim()) return;
+
+    const actualUserId = userId || user?.id;
+    if (!actualUserId) {
+      console.error("No logged-in user");
+      return;
+    }
 
     try {
       const res = await axios.post("http://localhost:8081/api/posts/create", {
         title,
         description,
-        userId,
+        userId: actualUserId,
       });
 
       setPosts((prev) => [
@@ -75,8 +83,14 @@ export default function useForumPosts(userId = null) {
   };
 
   //add comment
-  const addComment = async (postId, commentText) => {
+  const addComment = async (postId, commentText, userId) => {
     if (!commentText.trim()) return;
+
+    const actualUserId = userId || user?.id;
+    if (!actualUserId) {
+      console.error("No logged-in user");
+      return;
+    }
 
     try {
       const res = await axios.post(
@@ -84,7 +98,7 @@ export default function useForumPosts(userId = null) {
         {
           postId,
           description: commentText,
-          userId: 1,
+          userId: actualUserId,
         },
       );
 
@@ -94,11 +108,12 @@ export default function useForumPosts(userId = null) {
             ? {
                 ...p,
                 comments: [
-                  ...p.comments,
                   {
                     id: res.data.data.id,
                     text: res.data.data.description,
+                    userId: actualUserId,
                   },
+                  ...p.comments, //prepend new comment
                 ],
               }
             : p,
@@ -108,7 +123,7 @@ export default function useForumPosts(userId = null) {
       console.error("Error adding comment:", err);
     }
   };
-  //add likes
+  // likes
   const toggleLike = (postId) => {
     setPosts((prevPosts) =>
       prevPosts.map((post) =>

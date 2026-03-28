@@ -3,9 +3,9 @@ import Forum from "./Forum";
 import Box from "@mui/material/Box";
 import useForumPosts from "../../hooks/useForumPosts";
 
-function ChatForum() {
+function ChatForum({ user }) {
   const { posts, setPosts, addPost, editPost, deletePost, addComment } =
-    useForumPosts(); //receiving state from post //calling the custom hook
+    useForumPosts(user); //receiving state from post //calling the custom hook
 
   return (
     <>

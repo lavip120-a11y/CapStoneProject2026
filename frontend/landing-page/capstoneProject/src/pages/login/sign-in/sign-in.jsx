@@ -130,7 +130,7 @@ export default function SignIn({ setUser }) {
       }
     } catch (err) {
       console.error("Login failed:", err);
-      alert("Error.  Please try again later");
+      alert("Error.  User not found, Do you have an account?");
     }
   };
 

@@ -23,7 +23,7 @@ function ProtectedRoute({ user, children }) {
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false); //open sidebar drawer on mobile phone
   const [user, setUser] = useState(null); // not logged in
-  const [searchTerm, setSearchTerm] = useState(""); // setting up state for use in search bar maybe
+  // const [searchTerm, setSearchTerm] = useState(""); // setting up state for use in search bar maybe
   const isDesktop = useMediaQuery("(min-width:960px)"); //detect screen size
 
   const toggleDrawer = (open) => () => {
@@ -87,7 +87,7 @@ function App() {
                         boxShadow: "0 2px 10px rgba(0,0,0,0.05)",
                       }}
                     >
-                      <ChatForum searchTerm={searchTerm} />
+                      <ChatForum user={user} />
                     </Box>
                   </ProtectedRoute>
                 }

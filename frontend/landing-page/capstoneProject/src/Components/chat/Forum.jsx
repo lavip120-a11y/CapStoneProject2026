@@ -26,7 +26,7 @@ export default function Forum({
   // handler for adding new posts, removes extra spaces, if the post is empty does not add it.
   const handleAddPost = () => {
     if (!newTitle.trim() || !newPost.trim()) return;
-    addPost(newTitle, newPost, 1); //title, description, userId
+    addPost(newTitle, newPost); //title, description
     setNewTitle(""); //clear title field
     setNewPost(""); //clear input field
   };
@@ -63,7 +63,14 @@ export default function Forum({
               // updates state with users new post
               onChange={(e) => setNewPost(e.target.value)}
               multiline
-              minRows={3}
+              variant="outlined"
+              sx={{
+                "& .MuiInputBase-root": {
+                  height: 180,
+                  alignItems: "flex-start",
+                  padding: "8px",
+                },
+              }}
             ></TextField>
             {/* on click handleAddPost is called and adds the new post */}
             <Button variant="contained" onClick={handleAddPost}>
