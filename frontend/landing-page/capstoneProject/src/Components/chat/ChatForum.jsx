@@ -12,6 +12,7 @@ function ChatForum({ user }) {
       {/* matching the mui theme and sidebar */}
       <Box
         sx={{
+          width: "100%",
           p: 3,
           bgcolor: "background.default",
           minHeight: "100%",

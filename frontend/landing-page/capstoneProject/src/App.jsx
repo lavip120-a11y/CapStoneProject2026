@@ -36,7 +36,7 @@ function App() {
   return (
     <AppTheme>
       <CssBaseline enableColorScheme />
-      {/* main container for the landing/main/home page - flex for side by side view */}
+      {/* main container for the landing page - flex for side by side view */}
       <Router>
         <Box
           sx={{
@@ -57,12 +57,12 @@ function App() {
             />
           )}
 
-          {/* container for chatForumPage - main content - flex takes up space beside the sidebar and padding to space items */}
+          {/* container for chatForumPage - flex takes up space beside the sidebar and padding to space items */}
           <Box
             sx={{
               flexGrow: 1,
               p: { xs: 2, md: 4 },
-              ml: { md: "250px" },
+              ml: { md: "300px" },
               backgroundColor: "background.default",
             }}
           >

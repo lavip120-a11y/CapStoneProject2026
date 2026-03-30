@@ -26,7 +26,7 @@ export default function SideBar({ user, setUser, open, toggleDrawer }) {
   };
 
   const drawerContent = (
-    <Box sx={{ width: 250, p: 2, height: "100%", overflowX: "hidden" }}>
+    <Box sx={{ width: 280, p: 2, height: "100%", overflowX: "hidden" }}>
       <Stack spacing={3} sx={{ height: "100%" }}>
         {/* Avatar and Username */}
         <Stack
@@ -56,11 +56,11 @@ export default function SideBar({ user, setUser, open, toggleDrawer }) {
         </Stack>
         <Divider />
 
-        {/* Menu Links
+        {/* Menu Links */}
         <Box sx={{ flexGrow: 1 }}>
           <MenuContent />
         </Box>
-        <Divider /> */}
+        <Divider />
 
         {/* Cards */}
         <Box sx={{ mt: 2 }}>
@@ -128,7 +128,7 @@ export default function SideBar({ user, setUser, open, toggleDrawer }) {
   ) : (
     <Box
       sx={{
-        width: 250,
+        width: 300,
         backgroundColor: "background.paper",
         borderRight: "1px solid #e0e0e0",
         height: "100vh",

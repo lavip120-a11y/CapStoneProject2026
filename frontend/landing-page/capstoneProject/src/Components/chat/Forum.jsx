@@ -34,7 +34,7 @@ export default function Forum({
   return (
     // medium width container with top and bottom margins
     <Container
-      maxWidth="md"
+      maxWidth={false}
       sx={{ py: 2, display: "flex", flexDirection: "column", gap: 4 }}
     >
       {/* post card */}

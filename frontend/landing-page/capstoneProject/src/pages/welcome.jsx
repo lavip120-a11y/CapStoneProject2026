@@ -19,6 +19,7 @@ export default function Welcome() {
         p: 3,
         textAlign: "center",
         overflowY: "auto",
+        width: "100%",
       }}
     >
       <Box
@@ -27,7 +28,9 @@ export default function Welcome() {
         alt="Tairawhiti"
         sx={{
           width: "100%",
-          maxWidth: 600,
+          maxWidth: 900,
+          maxHeight: 600,
+          objectFit: "cover",
           borderRadius: 2,
           boxShadow: 3,
           mb: 4,
@@ -39,7 +42,7 @@ export default function Welcome() {
       <Typography
         variant="h6"
         color="text.secondary"
-        sx={{ mb: 4, maxWidth: 600 }}
+        sx={{ mb: 4, maxWidth: 900 }}
       >
         Tairawhiti is ....
       </Typography>
