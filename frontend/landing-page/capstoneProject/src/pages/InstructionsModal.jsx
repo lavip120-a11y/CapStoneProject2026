@@ -36,9 +36,11 @@ export default function InstructionsModal({ open, onClose }) {
           Instructions
         </Typography>
         <Typography id="instructions-modal-description" sx={{ mt: 2 }}>
-          Welcome to Tairawhiti Rising Chat Forum <br />
-          Post questions or advice in the forum <br />
-          Browse other posts and use comment to provide advice <br />
+          Welcome to Tairawhiti Rising <br />
+          Sign in to access the chat forum. <br />
+          In the chat forum you can post questions or provide information <br />
+          Browse other posts and use the comments section to respond to posts{" "}
+          <br />
           Log out when you are finished <br />
         </Typography>
       </Box>

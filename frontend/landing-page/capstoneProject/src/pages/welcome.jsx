@@ -44,7 +44,15 @@ export default function Welcome() {
         color="text.secondary"
         sx={{ mb: 4, maxWidth: 900 }}
       >
-        Tairawhiti is ....
+        Tairawhiti Rising is a platform that hopes to strengthen family and
+        future generations. A community supporting each other to share needs,
+        concerns, advice, goods and services. The platform brings together
+        tools, support and knowledge in one place. It is monitored by a group
+        committed to growing a stronger community, reducing reliance on agencies
+        and providing feedback to improve service provision. <br /> A chat forum
+        is accessed by signing up, you will be assigned a userId. Your needs and
+        advice will be collated, fact checked where necessary and used to
+        provide insights for others.
       </Typography>
 
       {/* Card Section if wanted

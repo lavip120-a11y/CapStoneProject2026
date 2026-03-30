@@ -7,12 +7,7 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Stack from "@mui/material/Stack";
 import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
-import AnalyticsRoundedIcon from "@mui/icons-material/AnalyticsRounded";
-import PeopleRoundedIcon from "@mui/icons-material/PeopleRounded";
-import AssignmentRoundedIcon from "@mui/icons-material/AssignmentRounded";
-import SettingsRoundedIcon from "@mui/icons-material/SettingsRounded";
 import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
-import HelpRoundedIcon from "@mui/icons-material/HelpRounded";
 import InstructionsModal from "../../pages/InstructionsModal";
 
 export default function MenuContent() {
@@ -25,8 +20,6 @@ export default function MenuContent() {
 
   const secondaryListItems = [
     { text: "Instructions", icon: <InfoRoundedIcon /> },
-    //   { text: "About", icon: <InfoRoundedIcon /> },
-    //   { text: "Feedback", icon: <HelpRoundedIcon /> },
   ];
 
   return (
