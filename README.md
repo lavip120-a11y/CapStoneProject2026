@@ -6,12 +6,12 @@ This capstone project serves as the final culmination of learning, showcasing pr
 ## Components
 - **Frontend**: It utilizes a sleek interface developed using React.js, ensuring an engaging user experience.
 - **Backend**: The backend is built with Node.js and Express, providing a robust server-side framework.
-- **Database**: MongoDB is employed to handle data storage efficiently, facilitating scalability.
+- **Database**: MySQL is employed to handle data storage efficiently, facilitating scalability.
 
 ## Technology Stack
 - **Frontend**: React.js, HTML, CSS
 - **Backend**: Node.js, Express
-- **Database**: MongoDB
+- **Database**: MySQL
 
 ## Setup Instructions
 1. **Clone the Repository**:  
