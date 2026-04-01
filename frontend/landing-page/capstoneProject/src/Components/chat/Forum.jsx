@@ -12,7 +12,7 @@ import PostCard from "../chat/PostCard"; //renders individual cards
 
 export default function Forum({
   posts,
-  setPosts,
+  //setPosts,
   addPost,
   editPost,
   deletePost,
@@ -92,7 +92,7 @@ export default function Forum({
               key={post.id} //identification for the post
               post={post} //individual post which populates postCard
               posts={posts} //posts array which postCard accesses
-              setPosts={setPosts} // setPosts function updates state and is passed as a prop for children to use if needed.
+              //setPosts={setPosts} // setPosts function updates state and is passed as a prop for children to use if needed.
               editPost={editPost} //edits post
               deletePost={deletePost} //deletes post
               addComment={addComment} //adds comment to post

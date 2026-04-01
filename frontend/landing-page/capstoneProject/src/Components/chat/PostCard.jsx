@@ -20,7 +20,8 @@ export default function PostCard({
   user,
 }) {
   const [editing, setEditing] = useState(false); // editing or not (default false - not editing post)
-  const [editText, setEditText] = useState(post.title); //storing the post while its being edited
+  const [editText, setEditText] = useState(post.title); //storing the title while its being edited
+  const [editDescription, setEditDescription] = useState(post.description); //storing the description while its being edited.
 
   const [showComments, setShowComments] = useState(false); //toggle comments
   const [likes, setLikes] = useState(0); //local state for likes - not connecting to database - uncertain of purpose at this point
@@ -33,7 +34,7 @@ export default function PostCard({
   //save the edited post
   const handleSaveEdit = () => {
     if (!editText.trim()) return;
-    editPost(post.id, editText);
+    editPost(post.id, editText, editDescription);
     setEditing(false); //returns to default - not editing
   };
 
@@ -68,9 +69,20 @@ export default function PostCard({
         </Box>
 
         {/* Post Description */}
-        <Typography variant="body1" sx={{ mb: 2 }}>
-          {post.description}
-        </Typography>
+        {editing ? (
+          <TextField
+            fullWidth
+            multiline
+            value={editDescription}
+            onChange={(e) => setEditDescription(e.target.value)}
+            size="small"
+            sx={{ mb: 2 }}
+          />
+        ) : (
+          <Typography variant="body1" sx={{ mb: 2 }}>
+            {post.description}
+          </Typography>
+        )}
 
         {/* Action Buttons */}
         <Box display="flex" gap={1} mb={2}>

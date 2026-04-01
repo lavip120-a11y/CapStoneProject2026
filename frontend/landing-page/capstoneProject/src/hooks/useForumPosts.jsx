@@ -62,10 +62,14 @@ export default function useForumPosts(user) {
   };
 
   //editing a post
-  const editPost = async (postId, newTitle) => {
+  const editPost = async (postId, newTitle, newDescription) => {
     try {
       setPosts((prev) =>
-        prev.map((p) => (p.id === postId ? { ...p, title: newTitle } : p)),
+        prev.map((p) =>
+          p.id === postId
+            ? { ...p, title: newTitle, description: newDescription }
+            : p,
+        ),
       );
     } catch (err) {
       console.error("Error while editing post:", err);
