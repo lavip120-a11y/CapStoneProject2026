@@ -1,11 +1,11 @@
 # Capstone Project 2026
 
 ## Overview
-This capstone project, Tairawhiti Rising, showcases a Node.js and Express backend API connected to a MySQL database useing Sequelize.  It provides CRUD functionality and authentification for users, posts, comments and likes.  The backend acts as the middle layer between the frontend application and the database handling all business logic, data validation and API requests.
+This capstone project, Tairawhiti Rising, is a community forum built wit React and Material UI, allowing users to create, edit and delete posts.  Add, edit and delete comments on posts and like posts locally.  It showcases a Node.js and Express backend API connected to a MySQL database useing Sequelize.  It provides CRUD functionality and authentification for users, posts, comments and likes.  The backend acts as the middle layer between the frontend application and the database handling all business logic, data validation and API requests.
 
 ## Components
-- **Frontend**: It utilizes a sleek interface developed using React.js, ensuring an engaging user experience.
-- **Backend**: The backend is built with Node.js and Express, providing a robust server-side framework.
+- **Frontend**: Developed using React.js, Material-UI.
+- **Backend**: The backend is built with Node.js and Express, and uses AXIOS for API calls.
 - **Database**: MySQL is employed to handle data storage efficiently, facilitating scalability.
 
 ## Technology Stack
@@ -30,7 +30,7 @@ cors
    `npm install` in the frontend directory.
 
 5. **Run the Application**:  
-   Start the backend server with `node server.js` and the frontend with `npm start`.
+   Start the backend server with `npm start`, ensure the backend is runnign at PORT:8081, and start the frontend with `npm run dev`.
 
 ## Key Concepts
 - MVC-style structure (Models, Controllers, Routes)
@@ -39,6 +39,9 @@ cors
 - Environment-based configuration
 
 ## Features
+- User Posts - users create new posts with a title and a description.
+- Post Editing and Deletion - Posts can be edited and deleted.
+- Comments - users can add, edit or delete comments on posts.
 - User authentication - basic login functionality is implemented by validating user email and password against stored data.
 - Real-time data visualization - for implementation in version 2.
 - Responsive design for mobile and desktop
