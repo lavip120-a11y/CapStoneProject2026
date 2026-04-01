@@ -3,9 +3,9 @@ import axios from "axios";
 
 //adding logged in user as a parameter so that userId can be provided for posts and comments
 export default function useForumPosts(user) {
-  const [posts, setPosts] = useState([]); //storing posts in state, is empty to start
+  const [posts, setPosts] = useState([]); //storing posts (including comments) in state, is empty to start
 
-  //fetching posts from backend mySQL uing axios
+  //fetching posts from backend mySQL using axios
   useEffect(() => {
     axios
       .get("http://localhost:8081/api/posts")
@@ -123,6 +123,42 @@ export default function useForumPosts(user) {
       console.error("Error adding comment:", err);
     }
   };
+
+  //Edit Comment
+  const editComment = (postId, commentId, newText) => {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post.id === postId
+          ? {
+              ...post,
+              comments: post.comments.map((comment) =>
+                comment.id === commentId
+                  ? { ...comment, text: newText }
+                  : comment,
+              ),
+            }
+          : post,
+      ),
+    );
+  };
+
+  //delete comment
+
+  const deleteComment = (postId, commentId) => {
+    setPosts((prevPosts) =>
+      prevPosts.map((post) =>
+        post.id === postId
+          ? {
+              ...post,
+              comments: post.comments.filter(
+                (comment) => comment.id !== commentId,
+              ),
+            }
+          : post,
+      ),
+    );
+  };
+
   // likes
   const toggleLike = (postId) => {
     setPosts((prevPosts) =>
@@ -138,5 +174,14 @@ export default function useForumPosts(user) {
     );
   };
 
-  return { posts, addPost, editPost, deletePost, addComment, toggleLike };
+  return {
+    posts,
+    addPost,
+    editPost,
+    deletePost,
+    addComment,
+    editComment,
+    deleteComment,
+    toggleLike,
+  };
 }

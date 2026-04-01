@@ -4,12 +4,22 @@ import Box from "@mui/material/Box";
 import useForumPosts from "../../hooks/useForumPosts";
 
 function ChatForum({ user }) {
-  const { posts, setPosts, addPost, editPost, deletePost, addComment } =
-    useForumPosts(user); //receiving state from post //calling the custom hook
+  //passing current user as a prop
+  //returning posts state and functions to update state
+  const {
+    posts,
+    setPosts,
+    addPost,
+    editPost,
+    deletePost,
+    addComment,
+    editComment,
+    deleteComment,
+  } = useForumPosts(user); // call custom hook
 
   return (
     <>
-      {/* matching the mui theme and sidebar */}
+      {/* mui theme - matching sidebar */}
       <Box
         sx={{
           width: "100%",
@@ -25,7 +35,7 @@ function ChatForum({ user }) {
           Welcome to Tairawhiti Rising
         </Typography>
 
-        {/* props passed to forum */}
+        {/* props - posts and update function - passed to forum */}
         <Forum
           posts={posts}
           setPosts={setPosts}
@@ -33,6 +43,9 @@ function ChatForum({ user }) {
           editPost={editPost}
           deletePost={deletePost}
           addComment={addComment}
+          editComment={editComment}
+          deleteComment={deleteComment}
+          user={user}
         ></Forum>
       </Box>
     </>

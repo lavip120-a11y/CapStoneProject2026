@@ -8,14 +8,22 @@ import {
   Typography,
   Divider,
 } from "@mui/material";
-import Comments from "./Comments";
+import Comments from "./Comments"; //component add comment and list comments
 
-export default function PostCard({ post, editPost, deletePost, addComment }) {
+export default function PostCard({
+  post,
+  editPost,
+  deletePost,
+  addComment,
+  editComment,
+  deleteComment,
+  user,
+}) {
   const [editing, setEditing] = useState(false); // editing or not (default false - not editing post)
   const [editText, setEditText] = useState(post.title); //storing the post while its being edited
 
-  const [showComments, setShowComments] = useState(false);
-  const [likes, setLikes] = useState(0);
+  const [showComments, setShowComments] = useState(false); //toggle comments
+  const [likes, setLikes] = useState(0); //local state for likes - not connecting to database - uncertain of purpose at this point
 
   //Delete Post
   const handleDeletePost = () => {
@@ -48,11 +56,12 @@ export default function PostCard({ post, editPost, deletePost, addComment }) {
               size="small"
             />
           ) : (
+            //post title
             <Typography variant="h6" fontWeight={600}>
               {post.title}
             </Typography>
           )}
-
+          {/* userID for post */}
           <Typography variant="caption" color="text.secondary">
             User {post.userId}
           </Typography>
@@ -72,13 +81,13 @@ export default function PostCard({ post, editPost, deletePost, addComment }) {
           >
             {editing ? "Cancel" : "Edit"}
           </Button>
-
+          {/* save button shows when editing */}
           {editing && (
             <Button variant="contained" size="small" onClick={handleSaveEdit}>
               Save
             </Button>
           )}
-
+          {/* delete post */}
           <Button
             variant="outlined"
             size="small"
@@ -90,7 +99,7 @@ export default function PostCard({ post, editPost, deletePost, addComment }) {
         </Box>
 
         <Divider sx={{ mb: 1 }} />
-
+        {/* button for like and show/hide comments */}
         <Box display="flex" gap={3} mb={1}>
           <Button size="small" onClick={() => setLikes(likes + 1)}>
             👍Like ({likes})
@@ -106,9 +115,12 @@ export default function PostCard({ post, editPost, deletePost, addComment }) {
         {/* Comments Toggle */}
         {showComments && (
           <Comments
-            comments={post.comments}
-            postId={post.id}
-            addComment={addComment}
+            comments={post.comments} //comments for post
+            postId={post.id} //postId for new comments
+            addComment={addComment} //addCOmment - useForumPosts hook
+            editComment={editComment} //editComment
+            deleteComment={deleteComment} //delete Comment
+            user={user} //pass user from chatForum so we know who is commenting
           />
         )}
       </CardContent>

@@ -8,7 +8,7 @@ import {
   Typography,
   Stack,
 } from "@mui/material";
-import PostCard from "../chat/PostCard";
+import PostCard from "../chat/PostCard"; //renders individual cards
 
 export default function Forum({
   posts,
@@ -17,8 +17,11 @@ export default function Forum({
   editPost,
   deletePost,
   addComment,
+  editComment,
+  deleteComment,
+  user,
 }) {
-  //post title
+  //post title (topic)
   const [newTitle, setNewTitle] = useState("");
   //post description
   const [newPost, setNewPost] = useState(""); //store new posts from user and updating setNewPost.
@@ -26,18 +29,18 @@ export default function Forum({
   // handler for adding new posts, removes extra spaces, if the post is empty does not add it.
   const handleAddPost = () => {
     if (!newTitle.trim() || !newPost.trim()) return;
-    addPost(newTitle, newPost); //title, description
+    addPost(newTitle, newPost); //title, description - new post
     setNewTitle(""); //clear title field
     setNewPost(""); //clear input field
   };
 
   return (
-    // medium width container with top and bottom margins
+    // container for forum
     <Container
       maxWidth={false}
       sx={{ py: 2, display: "flex", flexDirection: "column", gap: 4 }}
     >
-      {/* post card */}
+      {/* new post card */}
       <Card sx={{ borderRadius: 2, boxShadow: 3 }}>
         <CardContent>
           {/* Heading */}
@@ -58,7 +61,7 @@ export default function Forum({
             <TextField
               fullWidth
               label="Ask a question or share advice ..."
-              // newPost updates the textfield
+              // newPost updates the textfield/decription
               value={newPost}
               // updates state with users new post
               onChange={(e) => setNewPost(e.target.value)}
@@ -85,14 +88,17 @@ export default function Forum({
       <Stack spacing={3}>
         {posts &&
           posts.map((post) => (
-            <PostCard //child component of posts, receiving props from post, posts and setPosts
+            <PostCard
               key={post.id} //identification for the post
               post={post} //individual post which populates postCard
               posts={posts} //posts array which postCard accesses
               setPosts={setPosts} // setPosts function updates state and is passed as a prop for children to use if needed.
-              editPost={editPost}
-              deletePost={deletePost}
-              addComment={addComment}
+              editPost={editPost} //edits post
+              deletePost={deletePost} //deletes post
+              addComment={addComment} //adds comment to post
+              editComment={editComment} //edit comment
+              deleteComment={deleteComment} //delete Comment
+              user={user}
             />
           ))}
       </Stack>

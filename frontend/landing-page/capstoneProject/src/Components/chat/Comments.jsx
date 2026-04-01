@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import {
   Box,
   TextField,
@@ -8,15 +8,49 @@ import {
   ListItem,
 } from "@mui/material";
 
-const Comments = ({ comments, postId, addComment }) => {
-  const currentUser = { id: 1, name: "Johnny" };
+const Comments = ({
+  comments,
+  postId,
+  addComment,
+  editComment,
+  deleteComment,
+  user,
+}) => {
+  // const currentUser = { id: 1, name: "Johnny" };
+  const [commentText, setCommentText] = useState(""); //new comment
+  const [editingCommentId, setEditingCommentId] = useState(null); //which comment is being edited
+  const [editCommentText, setEditCommentText] = useState(""); //editing description
 
-  const [commentText, setCommentText] = useState("");
-
+  //handle adding a new comment
   const handleAddComment = () => {
-    if (!commentText.trim()) return;
-    addComment(postId, commentText, currentUser.id);
+    if (!commentText.trim()) return; //preventing an empty comment
+    addComment(postId, commentText, user?.id);
     setCommentText(""); //clear field
+  };
+
+  //editing comment
+  const handleEditComment = (comment) => {
+    setEditingCommentId(comment.id);
+    setEditCommentText(comment.text || comment.description);
+  };
+
+  //saving edited comment
+  const handleSaveEdit = () => {
+    if (!editCommentText.trim()) return;
+    editComment(postId, editingCommentId, editCommentText);
+    setEditingCommentId(null);
+    setEditCommentText("");
+  };
+
+  //Cancel editing
+  const handleCancelEdit = () => {
+    setEditingCommentId(null);
+    setEditCommentText("");
+  };
+
+  //Delete Comment
+  const handleDeleteComment = (commentId) => {
+    deleteComment(postId, commentId);
   };
 
   return (
@@ -30,6 +64,7 @@ const Comments = ({ comments, postId, addComment }) => {
           onChange={(e) => setCommentText(e.target.value)}
           size="small"
         ></TextField>
+
         <Button variant="contained" size="small" onClick={handleAddComment}>
           Send
         </Button>
@@ -38,13 +73,62 @@ const Comments = ({ comments, postId, addComment }) => {
       {/* Comments List */}
       <List>
         {comments.map((comment) => (
-          <ListItem key={comment.id} sx={{ display: "block", mb: 1 }}>
-            <Typography variant="body2" fontWeight={500}>
-              User {comment.userId}
-            </Typography>
-            <Typography variant="body2">
-              {comment.text || comment.description}
-            </Typography>
+          <ListItem
+            key={comment.id}
+            sx={{ display: "flex", flexDirection: "column", mb: 1 }}
+          >
+            {/* Comment Content */}
+            {editingCommentId === comment.id ? (
+              <>
+                <TextField
+                  fullWidth
+                  size="small"
+                  value={editCommentText}
+                  onChange={(e) => setEditCommentText(e.target.value)}
+                  sx={{ my: 1 }}
+                />
+                <Box display="flex" gap={1}>
+                  <Button
+                    size="small"
+                    variant="contained"
+                    onClick={handleSaveEdit}
+                  >
+                    Save
+                  </Button>
+                  <Button
+                    size="small"
+                    variant="contained"
+                    onClick={handleCancelEdit}
+                  >
+                    Cancel
+                  </Button>
+                </Box>
+              </>
+            ) : (
+              <Box sx={{ width: "100%" }}>
+                <Typography variant="body2" fontWeight={500}>
+                  User {comment.userId}
+                </Typography>
+                <Typography variant="body2" sx={{ mb: 1 }}>
+                  {comment.text || comment.description}
+                </Typography>
+                <Box display="flex" gap={1}>
+                  <Button
+                    size="small"
+                    onClick={() => handleEditComment(comment)}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    size="small"
+                    color="error"
+                    onClick={() => handleDeleteComment(comment.id)}
+                  >
+                    Delete
+                  </Button>
+                </Box>
+              </Box>
+            )}
           </ListItem>
         ))}
       </List>
