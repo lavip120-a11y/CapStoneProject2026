@@ -1,5 +1,6 @@
 "use strict";
 const Models = require("../models");
+
 // finds all posts in DB, then sends array as response
 const getPosts = (res) => {
   Models.Post.findAll({
@@ -13,6 +14,7 @@ const getPosts = (res) => {
       res.send({ result: 500, error: err.message });
     });
 };
+
 // finds all posts by specific User
 const getUserPosts = (req, res) => {
   Models.Post.findAll({ where: { userId: req.params.uid } })
@@ -36,6 +38,7 @@ const createPost = (data, res) => {
       res.send({ result: 500, error: err.message });
     });
 };
+
 // uses JSON from request body to update post ID from params
 const updatePost = (req, res) => {
   Models.Post.update(req.body, {
@@ -50,6 +53,7 @@ const updatePost = (req, res) => {
       res.send({ result: 500, error: err.message });
     });
 };
+
 // deletes post matching ID from params
 const deletePost = (req, res) => {
   Models.Post.destroy({ where: { id: req.params.id } })
@@ -61,6 +65,7 @@ const deletePost = (req, res) => {
       res.send({ result: 500, error: err.message });
     });
 };
+
 module.exports = {
   getPosts,
   getUserPosts,

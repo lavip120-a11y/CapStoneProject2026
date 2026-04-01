@@ -29,4 +29,5 @@ Like.init(
     freezeTableName: true,
   },
 );
+
 module.exports = Like;

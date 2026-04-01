@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Controllers = require("../controllers");
+const Controllers = require("../controllers"); //importing all controllers
 
 // matches GET requests sent to /api/user (the prefix from server.js)
 router.get("/", (req, res) => {
@@ -13,7 +13,7 @@ router.post("/create", (req, res) => {
   Controllers.userController.createUser(req.body, res); //passing the body for testing post method when using thunderclient
 });
 
-//sign in.jsx calls api/user/login
+//signIn.jsx calls api/user/login
 router.post("/login", (req, res) => {
   Controllers.userController.loginUser(req.body, res);
 });
@@ -22,6 +22,7 @@ router.post("/login", (req, res) => {
 router.put("/:id", (req, res) => {
   Controllers.userController.updateUser(req, res);
 });
+
 // matches DELETE requests to /api/users/123 (123 in id param)
 router.delete("/:id", (req, res) => {
   Controllers.userController.deleteUser(req, res);

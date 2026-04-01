@@ -1,5 +1,6 @@
 "use strict";
 const Models = require("../models");
+
 // finds all likes in DB, then sends array as response
 const getLikes = (res) => {
   Models.Like.findAll({})
@@ -11,6 +12,7 @@ const getLikes = (res) => {
       res.send({ result: 500, error: err.message });
     });
 };
+
 // uses JSON from request body to create new like in DB
 const createLike = (data, res) => {
   Models.Like.create(data)
@@ -22,6 +24,7 @@ const createLike = (data, res) => {
       res.send({ result: 500, error: err.message });
     });
 };
+
 // uses JSON from request body to update like ID from params
 const updateLike = (req, res) => {
   Models.Like.update(req.body, {
@@ -36,6 +39,7 @@ const updateLike = (req, res) => {
       res.send({ result: 500, error: err.message });
     });
 };
+
 // deletes like matching ID from params
 const deleteLike = (req, res) => {
   Models.Like.destroy({ where: { id: req.params.id } })
@@ -47,6 +51,7 @@ const deleteLike = (req, res) => {
       res.send({ result: 500, error: err.message });
     });
 };
+
 module.exports = {
   getLikes,
   createLike,

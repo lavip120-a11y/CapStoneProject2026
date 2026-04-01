@@ -2,8 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Controllers = require("../controllers");
 
-// matches GET requests sent to /api/comments
-// (the prefix from server.js)
+// matches GET requests sent to /api/comments (the prefix from server.js)
 router.get("/", (req, res) => {
   Controllers.commentController.getComments(res);
 });
@@ -18,6 +17,7 @@ router.post("/create", (req, res) => {
 router.put("/:id", (req, res) => {
   Controllers.commentController.updateComment(req, res);
 });
+
 // matches DELETE requests to /api/comment/123 (123 in id param)
 router.delete("/:id", (req, res) => {
   Controllers.commentController.deleteComment(req, res);

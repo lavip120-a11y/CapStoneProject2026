@@ -2,8 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Controllers = require("../controllers");
 
-// matches GET requests sent to /api/likes
-// (the prefix from server.js)
+// matches GET requests sent to /api/likes (the prefix from server.js)
 router.get("/", (req, res) => {
   Controllers.likeController.getLikes(res);
 });

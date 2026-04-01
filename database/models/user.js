@@ -47,4 +47,5 @@ User.init(
     freezeTableName: true,
   },
 );
+
 module.exports = User;

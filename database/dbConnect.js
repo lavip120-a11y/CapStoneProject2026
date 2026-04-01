@@ -1,6 +1,6 @@
 "use strict";
-
-const { Sequelize } = require("sequelize"); //import sequelize
+//import sequelize
+const { Sequelize } = require("sequelize");
 
 // Connecting to MYSQL using environment variables
 const sequelize = new Sequelize(
@@ -12,6 +12,7 @@ const sequelize = new Sequelize(
     dialect: "mysql",
   },
 );
+
 //creating the connection to MYSQL with success of failure error messages
 const connectMysql = async () => {
   //asynchronous function
@@ -25,4 +26,5 @@ ${process.env.DB_NAME}`);
   }
 };
 connectMysql(); //call function
+
 module.exports = { Sequelize: sequelize }; //exports sequelize for models and controllers to use

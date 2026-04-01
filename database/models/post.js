@@ -34,4 +34,5 @@ Post.init(
     freezeTableName: true,
   },
 );
+
 module.exports = Post;

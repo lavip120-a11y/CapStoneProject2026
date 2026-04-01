@@ -1,5 +1,6 @@
 "use strict";
 const Models = require("../models");
+
 // finds all comments in DB, then sends array as response
 const getComments = (res) => {
   Models.Comment.findAll({})
@@ -11,6 +12,7 @@ const getComments = (res) => {
       res.send({ result: 500, error: err.message });
     });
 };
+
 // uses JSON from request body to create new comment in DB
 const createComment = (data, res) => {
   Models.Comment.create(data)
@@ -22,6 +24,7 @@ const createComment = (data, res) => {
       res.send({ result: 500, error: err.message });
     });
 };
+
 // uses JSON from request body to update comment ID from params
 const updateComment = (req, res) => {
   Models.Comment.update(req.body, {
@@ -36,6 +39,7 @@ const updateComment = (req, res) => {
       res.send({ result: 500, error: err.message });
     });
 };
+
 // deletes comment matching ID from params
 const deleteComment = (req, res) => {
   Models.Comment.destroy({ where: { id: req.params.id } })
@@ -47,6 +51,7 @@ const deleteComment = (req, res) => {
       res.send({ result: 500, error: err.message });
     });
 };
+
 module.exports = {
   getComments,
   createComment,
